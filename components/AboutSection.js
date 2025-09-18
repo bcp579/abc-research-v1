@@ -15,6 +15,8 @@ export default function AboutSection() {
             <Image 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" 
                 alt="Our Team" 
+                width={1200}  
+                height={800}
                 className="rounded-lg shadow-2xl w-full"
                 onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/e2e8f0/4a5568?text=Our+Team'; e.currentTarget.onerror = null; }}
             />

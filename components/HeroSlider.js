@@ -95,6 +95,8 @@ export default function HeroSlider() {
                   <Image
                     src={slide.image}
                     alt={slide.title}
+                    width={1200}  
+                    height={800}
                     className="rounded-lg shadow-2xl w-full h-auto object-cover"
                     onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/e2e8f0/4a5568?text=Image+Not+Found'; e.currentTarget.onerror = null; }}
                   />
