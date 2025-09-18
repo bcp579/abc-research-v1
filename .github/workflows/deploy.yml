@@ -25,6 +25,14 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+
+      # --- ADD THESE TWO DEBUGGING STEPS ---
+      - name: 1. List files in the root directory
+        run: ls -la
+      - name: 2. Display content of next.config.mjs
+        run: cat next.config.mjs
+      # -------------------------------------
+
       - name: Build
         run: npm run build
       - name: Upload artifact
