@@ -1,4 +1,4 @@
-//THIS IS AN INTENTIONAL ERROR TO TEST THE BUILD;
+THIS IS AN INTENTIONAL ERROR TO TEST THE BUILD;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
