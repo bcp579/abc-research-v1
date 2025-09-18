@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
+//THIS IS AN INTENTIONAL ERROR TO TEST THE BUILD;
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
   basePath: '/abc-research-v1',

@@ -10,14 +10,14 @@ import Image from 'next/image';
 // Make sure these filenames match the files in your /public folder.
 const slides = [
   {
-    image: '/abc-research-v1/public/AdvisingCafeLineUp-pages.jpg',
+    image: '/AdvisingCafeLineUp-pages.jpg',
     title: 'AI & Machine Learning Solutions',
     description: 'Transform your business with our expertise in custom LLM models, NLP, computer vision, and predictive analytics.',
     ctaText: 'Explore AI Services',
     ctaLink: '/offerings/ai-ml',
   },
   {
-     image: 'https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2106&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=2106&auto=format&fit=crop',
     title: 'Custom Software Development',
     description: 'We build bespoke software solutions tailored to your specific business needs, from initial concept to final deployment.',
     ctaText: 'Our Process',
