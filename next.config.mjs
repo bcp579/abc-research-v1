@@ -1,10 +1,10 @@
 /**@type {import('next').NextConfig} */
 
 const nextConfig = {
-    output: 'export',
+    output: "export'",
     trailingSlash: true,
-    basePath: '/abc-research-v1',
-    assetPrefix: '/abc-research-v1/',
+    basePath: "/abc-research-v1",
+    assetPrefix: "/abc-research-v1/",
     images: {
         unoptimized:true,
     },
