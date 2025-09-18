@@ -10,7 +10,7 @@ import Image from 'next/image';
 // Make sure these filenames match the files in your /public folder.
 const slides = [
   {
-    image: '/slide-1.webp',
+    image: '/abc-research-v1/slide-1.webp',
     title: 'AI & Machine Learning Solutions',
     description: 'Transform your business with our expertise in custom LLM models, NLP, computer vision, and predictive analytics.',
     ctaText: 'Explore AI Services',
