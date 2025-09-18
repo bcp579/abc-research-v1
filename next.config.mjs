@@ -2,11 +2,8 @@
 
 const nextConfig = {
   output: 'export',
-  
-  // Hardcode the paths for the production build.
   basePath: '/abc-research-v1',
-  assetPrefix: '/abc-research-v1/', // Note the trailing slash
-  
+  assetPrefix: '/abc-research-v1/',
   images: {
     unoptimized: true,
   },
