@@ -1,19 +1,10 @@
 /** @type {import('next').NextConfig} */
-
-// This check determines if you are running a production build or local development
-const isProd = process.env.NODE_ENV === 'production';
-
 const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  
-  // Apply the paths ONLY for the production build
-  basePath: isProd ? '/abc-research-v1' : '',
-  assetPrefix: isProd ? '/abc-research-v1/' : '',
-  
+  output: 'export',  // Tells Next.js to build a static HTML/CSS/JS site
   images: {
-    unoptimized: true,
+    unoptimized: true, // Crucial: Disables server-side image optimization so images work on GitHub Pages
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig; 
+// Note: If your file is .mjs, use `export default nextConfig;` instead.
