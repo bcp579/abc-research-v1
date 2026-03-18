@@ -2,6 +2,7 @@
 
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AboutSection() {
   return (
@@ -29,9 +30,9 @@ export default function AboutSection() {
           <p className="text-gray-600 mb-6">
             We believe in building long-term partnerships with our clients, grounded in trust, transparency, and a shared vision for success. From startups to enterprise-level corporations, we provide the strategic guidance and technical expertise to navigate the complexities of the digital age.
           </p>
-          <a href="/about" className="text-blue-600 font-semibold hover:underline">
+          <Link href="/about" className="text-blue-600 font-semibold hover:underline">
             Learn More About Our Mission <ArrowRight className="inline-block ml-1" size={18} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

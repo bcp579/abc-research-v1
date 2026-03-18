@@ -12,7 +12,7 @@ export const metadata = {
   title: 'ABC Research',
   description: 'Your partner in digital transformation.',
   icons: {
-    icon: '/favicon.ico', 
+    icon: '/ABC-logo.png', 
   },
 };
 
