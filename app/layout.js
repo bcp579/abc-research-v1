@@ -17,10 +17,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* Wrap the Header and Footer in ClientOnly */}
-        <ClientOnly>
+        
           <Header />
-        </ClientOnly>
 
         <main>{children}</main>
         

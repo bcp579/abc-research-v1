@@ -1,13 +1,10 @@
-
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
-// Using local images is the most reliable method.
-// Make sure these filenames match the files in your /public folder.
 const slides = [
   {
     image: '/slide-1.webp',
@@ -33,25 +30,56 @@ const slides = [
 ];
 
 export default function HeroSlider() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  // 1. Added 'duration: 600' for slower transition (default is 25)
+  // 2. Removed 'loop: true' to ensure it always starts at 1 and stays logical
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: false, 
+    duration: 40 
+  });
+  
   const [currentSlide, setCurrentSlide] = useState(0);
+  const timerRef = useRef(null);
+
+  // Function to start/reset the 5-second timer
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    
+    timerRef.current = setInterval(() => {
+      if (emblaApi) {
+        if (emblaApi.canScrollNext()) {
+          emblaApi.scrollNext();
+        } else {
+          emblaApi.scrollTo(0); // Go back to start if at the end
+        }
+      }
+    }, 6000);
+  }, [emblaApi]);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+    if (emblaApi) {
+      emblaApi.scrollPrev();
+      startTimer(); // Reset timer on click
+    }
+  }, [emblaApi, startTimer]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    const interval = setInterval(() => {
+    if (emblaApi) {
       emblaApi.scrollNext();
-    }, 5000); // Change slide every 5 seconds
-    return () => clearInterval(interval);
-  }, [emblaApi]);
-  
+      startTimer(); // Reset timer on click
+    }
+  }, [emblaApi, startTimer]);
+
+  // Reset to slide 1 (index 0) every time the component mounts (user comes back)
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.scrollTo(0, true); // 'true' jumps without animation
+      startTimer();
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [emblaApi, startTimer]);
+
   useEffect(() => {
     if (!emblaApi) return;
     const onSelect = () => {
@@ -62,58 +90,49 @@ export default function HeroSlider() {
   }, [emblaApi]);
 
   return (
-    <div 
-    className="relative w-full bg-blue-50 flex item-center" 
-    style={{ minHeight: 'calc(100vh - 80px)' }} 
-    ref={emblaRef}
-    >
-      <div className="flex">
-        {slides.map((slide, index) => (
-          // Each slide is now a flex container
-          <div className="flex-[0_0_100%] min-w-0" key={index}>
-            <div className="container mx-auto px-6 py-16 md:py-24">
-              <div className="flex flex-col md:flex-row items-center gap-12">
-                
-                {/* Text Content Column */}
-                <div className="md:w-1/2 text-center md:text-left">
-                  <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
-                    {slide.title}
-                  </h1>
-                  <p className="text-lg md:text-xl text-gray-600 mb-8">
-                    {slide.description}
-                  </p>
-                  <a
-                    href={slide.ctaLink}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-transform duration-300 ease-in-out transform hover:scale-105 inline-block"
-                  >
-                    {slide.ctaText}
-                  </a>
+    <div className="relative w-full overflow-hidden" id="hero">
+      <div className="bg-blue-50" ref={emblaRef}>
+        <div className="flex">
+          {slides.map((slide, index) => (
+            <div className="flex-[0_0_100%] min-w-0" key={index}>
+              <div className="container mx-auto px-6 py-16 md:py-24" style={{ minHeight: 'calc(100vh - 80px)' }}>
+                <div className="flex flex-col md:flex-row items-center gap-12">
+                  <div className="md:w-1/2 text-center md:text-left">
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+                      {slide.title}
+                    </h1>
+                    <p className="text-lg md:text-xl text-gray-600 mb-8">
+                      {slide.description}
+                    </p>
+                    <a
+                      href={slide.ctaLink}
+                      className="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-transform duration-300 ease-in-out transform hover:scale-105 inline-block"
+                    >
+                      {slide.ctaText}
+                    </a>
+                  </div>
+                  <div className="md:w-1/2">
+                    <Image
+                      src={slide.image}
+                      alt={slide.title}
+                      width={1200}  
+                      height={800}
+                      priority={index === 0} // Load first slide image immediately
+                      className="rounded-lg shadow-2xl w-full h-auto object-cover"
+                    />
+                  </div>
                 </div>
-
-                {/* Image Column */}
-                <div className="md:w-1/2">
-                  <Image
-                    src={slide.image}
-                    alt={slide.title}
-                    width={1200}  
-                    height={800}
-                    className="rounded-lg shadow-2xl w-full h-auto object-cover"
-                    onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/e2e8f0/4a5568?text=Image+Not+Found'; e.currentTarget.onerror = null; }}
-                  />
-                </div>
-
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* Navigation Buttons and Dots */}
+      {/* Navigation Buttons */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-10">
         <button
           className="bg-white/50 text-gray-800 p-2 rounded-full hover:bg-white/80 transition-colors"
           onClick={scrollPrev}
-          aria-label="Previous slide"
         >
           <ArrowLeft size={20} />
         </button>
@@ -122,9 +141,11 @@ export default function HeroSlider() {
             {slides.map((_, index) => (
                 <button 
                     key={index} 
-                    onClick={() => emblaApi && emblaApi.scrollTo(index)}
-                    className={`w-2 h-2 rounded-full transition-colors ${index === currentSlide ? 'bg-blue-600' : 'bg-gray-400'}`}
-                    aria-label={`Go to slide ${index + 1}`}
+                    onClick={() => {
+                        emblaApi?.scrollTo(index);
+                        startTimer();
+                    }}
+                    className={`w-2 h-2 rounded-full transition-colors duration-500 ${index === currentSlide ? 'bg-blue-600 w-4' : 'bg-gray-400'}`}
                 />
             ))}
         </div>
@@ -132,7 +153,6 @@ export default function HeroSlider() {
         <button
           className="bg-white/50 text-gray-800 p-2 rounded-full hover:bg-white/80 transition-colors"
           onClick={scrollNext}
-          aria-label="Next slide"
         >
           <ArrowRight size={20} />
         </button>

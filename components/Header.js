@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from 'lucide-react';
 import { Fragment } from 'react';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 // Define your navigation structure here (this part doesn't change)
 const navigation = [
@@ -30,24 +32,49 @@ const navigation = [
         { name: 'Contract to Hire', href: '/staffing/contract-to-hire' },
     ],
   },
-  {
-    name: 'Careers',
-    options: [
-        { name: 'Current Openings', href: '/careers/openings' },
-        { name: 'Life at InfoNext', href: '/careers/life' },
-    ],
-  },
+  { name: 'Careers', href: '/careers' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact Us', href: '/contact' },
 ];
 
 export default function Header() {
+
+const [isAtTop, setIsAtTop] = useState(true);
+
+useEffect(() => {
+    const handleScroll = () => {
+      // If scroll is more than 50px, hide the header
+      // You can adjust this value to match your Hero section height
+      if (window.scrollY > 40) {
+        setIsAtTop(false);
+      } else {
+        setIsAtTop(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-20 py-4 flex justify-between items-center">
+    <header 
+      className={`bg-white shadow-md sticky top-0 z-50 transition-all duration-500 ease-in-out ${
+        isAtTop ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+      }`}
+    >
+      <div className="container mx-auto px-6 md:px-20 py-1 flex justify-between items-center">
         <div className="text-3xl font-bold rounded-md px-3 py-2 text-blue-600 transition-transform ease-in-out transform duration-500  hover:scale-105 inline-block">
           {/* FIX: Use Link for navigation */}
-          <Link href="/">ABC Research</Link>
+          <Link href="/">
+          <Image
+            src="/ABC-logo.png"
+            alt="ABC_Research.logo"
+            width={150}  
+            height={40}
+            priority
+            className="h-17 w-auto object-contain"
+            />
+          </Link>
         </div>
         <nav className="hidden md:flex items-center space-x-6">
           {navigation.map((item) =>
