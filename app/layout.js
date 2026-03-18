@@ -11,9 +11,6 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata = {
   title: 'ABC Research',
   description: 'Your partner in digital transformation.',
-  icons: {
-    icon: '/ABC-logo.png', 
-  },
 };
 
 export default function RootLayout({ children }) {
