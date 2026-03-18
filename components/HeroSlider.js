@@ -5,9 +5,11 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
+import slide1img from "../public/slide-1.webp"
+
 const slides = [
   {
-    image: '/slide-1.webp',
+    image: slide1img,
     title: 'AI & Machine Learning Solutions',
     description: 'Transform your business with our expertise in custom LLM models, NLP, computer vision, and predictive analytics.',
     ctaText: 'Explore AI Services',

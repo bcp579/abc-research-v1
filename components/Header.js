@@ -8,6 +8,8 @@ import { Fragment } from 'react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
+import LogoImg from '../public/ABC-logo.png';
+
 // Define your navigation structure here (this part doesn't change)
 const navigation = [
   {
@@ -67,7 +69,7 @@ useEffect(() => {
           {/* FIX: Use Link for navigation */}
           <Link href="/">
           <Image
-            src="/ABC-logo.png"
+            src={LogoImg}
             alt="ABC_Research.logo"
             width={150}  
             height={40}

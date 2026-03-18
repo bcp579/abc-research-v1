@@ -1,21 +1,24 @@
 import Image from 'next/image';
+import Project1Img from '../../public/Project1.png';
+import Project2Img from '../../public/Project2.png';
+import Project3Img from '../../public/Project3.png';
 
 export default function AboutUsPage() {
   const projects = [
     {
       title: "Project 1: AI-Assisted MRI Positioning",
       description: "A real-time AI system that helps technologists optimize patient positioning during MRI scans, providing instant feedback to improve visualization, reduce repeat scans, and ensure more reliable diagnoses.",
-      image: "/Project1.png" 
+      image: Project1Img
     },
     {
       title: "Project 2: Brain-Guided Home Rehabilitation",
       description: "A home-based rehabilitation platform that detects brain activity during imagined movements and delivers guided exercises with adaptive sound stimulation, helping patients stay engaged, track progress, and continue recovery beyond the clinic.",
-      image: "/Project2.png"
+      image: Project2Img
     },
     {
       title: "Project 3: Intraoral Brain-Sensing Home Rehabilitation",
       description: "A home-based rehabilitation platform that captures brain activity using a discreet intraoral device, ideal for patients whose heads are covered, and delivers guided exercises with adaptive sound stimulation to support consistent recovery from home.",
-      image: "/Project3.png"
+      image: Project3Img
     }
   ];
 
